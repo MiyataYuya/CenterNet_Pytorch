@@ -19,5 +19,10 @@ class double_conv(nn.Module):
 
 
 class up(nn.Module):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
+    def __init__(self, in_c, out_c, bilinear=True) -> None:
+        super().__init__()
+        if bilinear:
+            self.up = nn.Upsample(
+                scale_factor=2, mode='bilinear', align_corners=True)
+        else:
+            self.up == nn.ConvTranspose2d(in_c, in_c, 2, stride=2)
